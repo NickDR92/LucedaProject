@@ -1,4 +1,4 @@
-"""Random PrimitiveArt demo script."""
+"""Random demo script."""
 
 import random
 from typing import Callable, List
@@ -51,7 +51,7 @@ def random_triangle(width: int, height: int, order: int) -> Triangle:
 
 
 def build_random_art(shape_count: int = 12) -> Drawing:
-    """Create a random PrimitiveArt drawing.
+    """Create a random drawing.
 
     Args:
         shape_count: Number of random shapes to add.
@@ -62,11 +62,7 @@ def build_random_art(shape_count: int = 12) -> Drawing:
     width: int = 700
     height: int = 420
     drawing: Drawing = Drawing(width=width, height=height, background="#fbfaf6")
-    shape_factories: List[Callable[[int, int, int], BaseShape]] = [
-        random_circle,
-        random_square,
-        random_triangle,
-    ]
+    shape_factories: List[Callable[[int, int, int], BaseShape]] = [random_circle, random_square, random_triangle]
 
     for order in range(shape_count):
         factory: Callable[[int, int, int], BaseShape] = random.choice(shape_factories)
@@ -77,7 +73,7 @@ def build_random_art(shape_count: int = 12) -> Drawing:
 
 if __name__ == "__main__":
     drawing = build_random_art()
-    output_path = drawing.save_svg("primitive_art_random.svg")
+    output_path = drawing.save_svg("example_random.svg")
     drawing.show()
 
     print(drawing.summary())
