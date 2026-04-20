@@ -58,9 +58,9 @@ class PrimitiveArtIntegrationTest(unittest.TestCase):
 
     def test_summary_matches_area_distribution_for_mixed_shapes(self) -> None:
         drawing: Drawing = Drawing()
-        drawing.add(Square(x=0, y=0, side=10))
-        drawing.add(Circle(x=0, y=0, radius=math.sqrt(100 / math.pi)))
-        drawing.add(Triangle(x1=0, y1=0, x2=20, y2=0, x3=0, y3=10))
+        drawing.add(Square(x=1, y=1, side=10))
+        drawing.add(Circle(x=1, y=1, radius=math.sqrt(100 / math.pi)))
+        drawing.add(Triangle(x1=1, y1=1, x2=21, y2=1, x3=1, y3=11))
 
         summary: str = drawing.summary()
 
@@ -72,7 +72,7 @@ class PrimitiveArtIntegrationTest(unittest.TestCase):
 
     def test_custom_shape_kind_flows_through_area_score_and_svg(self) -> None:
         drawing: Drawing = Drawing()
-        drawing.add(Square(x=0, y=0, side=10))
+        drawing.add(Square(x=1, y=1, side=10))
         drawing.add(CustomShape())
 
         areas: Dict[str, float] = drawing.area_by_kind()

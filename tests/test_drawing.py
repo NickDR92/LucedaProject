@@ -32,9 +32,9 @@ class DrawingTest(unittest.TestCase):
 
     def test_area_by_kind(self) -> None:
         drawing: Drawing = Drawing()
-        drawing.add(Square(x=0, y=0, side=10))
-        drawing.add(Circle(x=0, y=0, radius=10))
-        drawing.add(Triangle(x1=0, y1=0, x2=10, y2=0, x3=0, y3=10))
+        drawing.add(Square(x=1, y=1, side=10))
+        drawing.add(Circle(x=1, y=1, radius=10))
+        drawing.add(Triangle(x1=1, y1=1, x2=11, y2=1, x3=1, y3=11))
 
         areas: Dict[str, float] = drawing.area_by_kind()
 
@@ -56,9 +56,9 @@ class DrawingTest(unittest.TestCase):
         drawing: Drawing = Drawing()
 
         # Each primitive contributes exactly 100 area units.
-        drawing.add(Square(x=0, y=0, side=10))
-        drawing.add(Circle(x=0, y=0, radius=math.sqrt(100 / math.pi)))
-        drawing.add(Triangle(x1=0, y1=0, x2=20, y2=0, x3=0, y3=10))
+        drawing.add(Square(x=1, y=1, side=10))
+        drawing.add(Circle(x=1, y=1, radius=math.sqrt(100 / math.pi)))
+        drawing.add(Triangle(x1=1, y1=1, x2=21, y2=1, x3=1, y3=11))
 
         self.assertEqual(drawing.beautiful_score(), 100)
 
@@ -66,16 +66,16 @@ class DrawingTest(unittest.TestCase):
         drawing: Drawing = Drawing()
 
         # Four kinds with equal areas should target 25% each.
-        drawing.add(Square(x=0, y=0, side=10))
-        drawing.add(Circle(x=0, y=0, radius=math.sqrt(100 / math.pi)))
-        drawing.add(Triangle(x1=0, y1=0, x2=20, y2=0, x3=0, y3=10))
+        drawing.add(Square(x=1, y=1, side=10))
+        drawing.add(Circle(x=1, y=1, radius=math.sqrt(100 / math.pi)))
+        drawing.add(Triangle(x1=1, y1=1, x2=21, y2=1, x3=1, y3=11))
         drawing.add(TestObject())
 
         self.assertEqual(drawing.beautiful_score(), 100)
 
     def test_beautiful_score_is_100_for_one_present_object_kind(self) -> None:
         drawing: Drawing = Drawing()
-        drawing.add(Square(x=0, y=0, side=10))
+        drawing.add(Square(x=1, y=1, side=10))
 
         self.assertEqual(drawing.beautiful_score(), 100)
 
@@ -100,9 +100,9 @@ class DrawingTest(unittest.TestCase):
         drawing: Drawing = Drawing()
         drawing.extend(
             [
-                Circle(x=0, y=0, radius=10, color="red", order=2),
-                Square(x=0, y=0, side=10, color="blue", order=1),
-                Triangle(x1=0, y1=0, x2=10, y2=0, x3=0, y3=10, color="green", order=3),
+                Circle(x=1, y=1, radius=10, color="red", order=2),
+                Square(x=1, y=1, side=10, color="blue", order=1),
+                Triangle(x1=1, y1=1, x2=11, y2=1, x3=1, y3=11, color="green", order=3),
             ]
         )
 
@@ -115,8 +115,8 @@ class DrawingTest(unittest.TestCase):
         drawing: Drawing = Drawing()
         drawing.extend(
             [
-                Circle(x=0, y=0, radius=10, color="red"),
-                Square(x=0, y=0, side=10, color="blue"),
+                Circle(x=1, y=1, radius=10, color="red"),
+                Square(x=1, y=1, side=10, color="blue"),
             ]
         )
 
@@ -152,14 +152,14 @@ class DrawingTest(unittest.TestCase):
 
     def test_primitive_classes_are_importable_from_prim_package(self) -> None:
         # Users should be able to import all primitives from the package root.
-        self.assertEqual(Circle(x=0, y=0, radius=1).kind, "circle")
-        self.assertEqual(Square(x=0, y=0, side=1).kind, "square")
-        self.assertEqual(Triangle(x1=0, y1=0, x2=1, y2=0, x3=0, y3=1).kind, "triangle")
+        self.assertEqual(Circle(x=1, y=1, radius=1).kind, "circle")
+        self.assertEqual(Square(x=1, y=1, side=1).kind, "square")
+        self.assertEqual(Triangle(x1=1, y1=1, x2=2, y2=1, x3=1, y3=2).kind, "triangle")
 
     def test_builtin_primitives_use_shape_kind_enum(self) -> None:
-        self.assertEqual(Circle(x=0, y=0, radius=1).kind, ShapeKind.CIRCLE)
-        self.assertEqual(Square(x=0, y=0, side=1).kind, ShapeKind.SQUARE)
-        self.assertEqual(Triangle(x1=0, y1=0, x2=1, y2=0, x3=0, y3=1).kind, ShapeKind.TRIANGLE)
+        self.assertEqual(Circle(x=1, y=1, radius=1).kind, ShapeKind.CIRCLE)
+        self.assertEqual(Square(x=1, y=1, side=1).kind, ShapeKind.SQUARE)
+        self.assertEqual(Triangle(x1=1, y1=1, x2=2, y2=1, x3=1, y3=2).kind, ShapeKind.TRIANGLE)
 
 
 if __name__ == "__main__":

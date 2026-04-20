@@ -18,6 +18,21 @@ class SquareTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             Square(x=10, y=20, side=0)
 
+    def test_rejects_coordinates_that_are_not_bigger_than_zero(self) -> None:
+        invalid_coordinates = [
+            {"x": -1, "y": 20, "side": 5},
+            {"x": 10, "y": -1, "side": 5},
+        ]
+
+        for coordinates in invalid_coordinates:
+            with self.subTest(coordinates=coordinates):
+                with self.assertRaises(ValueError):
+                    Square(**coordinates)
+
+    def test_rejects_message_names_invalid_coordinates(self) -> None:
+        with self.assertRaisesRegex(ValueError, "Invalid: x, y"):
+            Square(x=-1, y=-1, side=5)
+
     def test_svg(self) -> None:
         svg = Square(x=10, y=20, side=5, color="blue").to_svg()
 

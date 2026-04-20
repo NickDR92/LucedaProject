@@ -33,6 +33,29 @@ class Triangle(BaseShape):
     order: int = 0
     kind: ShapeKind = field(init=False, default=ShapeKind.TRIANGLE)
 
+    def __post_init__(self) -> None:
+        """Validate triangle coordinates after initialization.
+
+        Raises:
+            ValueError: If any triangle coordinate is not bigger than 0.
+        """
+        coordinates = {
+            "x1": self.x1,
+            "y1": self.y1,
+            "x2": self.x2,
+            "y2": self.y2,
+            "x3": self.x3,
+            "y3": self.y3,
+        }
+        invalid_coordinates = [
+            name for name, value in coordinates.items() if value < 0
+        ]
+        if invalid_coordinates:
+            invalid_names = ", ".join(invalid_coordinates)
+            raise ValueError(
+                f"Triangle coordinates must be bigger than 0. Invalid: {invalid_names}."
+            )
+
     def area(self) -> float:
         """Calculate the area of the triangle.
 

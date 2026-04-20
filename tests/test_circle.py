@@ -19,6 +19,21 @@ class CircleTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             Circle(x=10, y=20, radius=0)
 
+    def test_rejects_coordinates_that_are_not_bigger_than_zero(self) -> None:
+        invalid_coordinates = [
+            {"x": -1, "y": 20, "radius": 5},
+            {"x": 10, "y": -1, "radius": 5},
+        ]
+
+        for coordinates in invalid_coordinates:
+            with self.subTest(coordinates=coordinates):
+                with self.assertRaises(ValueError):
+                    Circle(**coordinates)
+
+    def test_rejects_message_names_invalid_coordinates(self) -> None:
+        with self.assertRaisesRegex(ValueError, "Invalid: x, y"):
+            Circle(x=-1, y=-1, radius=5)
+
     def test_svg(self) -> None:
         svg = Circle(x=10, y=20, radius=5, color="red").to_svg()
 

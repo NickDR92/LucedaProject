@@ -29,11 +29,22 @@ class Circle(BaseShape):
     kind: ShapeKind = field(init=False, default=ShapeKind.CIRCLE)
 
     def __post_init__(self) -> None:
-        """Validate circle dimensions after initialization.
+        """Validate circle coordinates and dimensions after initialization.
 
         Raises:
-            ValueError: If the radius is not positive.
+            ValueError: If coordinates or radius are not positive.
         """
+        invalid_coordinates = []
+        if self.x < 0:
+            invalid_coordinates.append("x")
+        if self.y < 0:
+            invalid_coordinates.append("y")
+        if invalid_coordinates:
+            invalid_names = ", ".join(invalid_coordinates)
+            raise ValueError(
+                f"Circle coordinates must be bigger than 0. Invalid: {invalid_names}."
+            )
+
         if self.radius <= 0:
             raise ValueError("Circle radius must be positive.")
 

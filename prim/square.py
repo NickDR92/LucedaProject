@@ -28,11 +28,22 @@ class Square(BaseShape):
     kind: ShapeKind = field(init=False, default=ShapeKind.SQUARE)
 
     def __post_init__(self) -> None:
-        """Validate square dimensions after initialization.
+        """Validate square coordinates and dimensions after initialization.
 
         Raises:
-            ValueError: If the side length is not positive.
+            ValueError: If coordinates or side length are not positive.
         """
+        invalid_coordinates = []
+        if self.x < 0:
+            invalid_coordinates.append("x")
+        if self.y < 0:
+            invalid_coordinates.append("y")
+        if invalid_coordinates:
+            invalid_names = ", ".join(invalid_coordinates)
+            raise ValueError(
+                f"Square coordinates must be bigger than 0. Invalid: {invalid_names}."
+            )
+
         if self.side <= 0:
             raise ValueError("Square side must be positive.")
 

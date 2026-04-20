@@ -28,8 +28,8 @@ def random_square(width: int, height: int, order: int) -> Square:
     """Create a random square within the drawing area."""
     side: int = random.randint(35, 120)
     return Square(
-        x=random.randint(0, width - side),
-        y=random.randint(0, height - side),
+        x=random.randint(1, width - side),
+        y=random.randint(1, height - side),
         side=side,
         color=random.choice(COLORS),
         order=order,
@@ -39,12 +39,12 @@ def random_square(width: int, height: int, order: int) -> Square:
 def random_triangle(width: int, height: int, order: int) -> Triangle:
     """Create a random triangle within the drawing area."""
     return Triangle(
-        x1=random.randint(0, width),
-        y1=random.randint(0, height),
-        x2=random.randint(0, width),
-        y2=random.randint(0, height),
-        x3=random.randint(0, width),
-        y3=random.randint(0, height),
+        x1=random.randint(1, width),
+        y1=random.randint(1, height),
+        x2=random.randint(1, width),
+        y2=random.randint(1, height),
+        x3=random.randint(1, width),
+        y3=random.randint(1, height),
         color=random.choice(COLORS),
         order=order,
     )
