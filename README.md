@@ -1,7 +1,17 @@
 # PrimitiveArt
 
-A small dependency-free prototype for creating PrimitiveArt drawings with circles,
-squares, and triangles.
+A small dependency-free prototype for creating primitive art drawings with circles,
+squares, and triangles. Users can define shapes in Python, render a drawing to
+SVG, and calculate how balanced the drawing is by shape area.
+
+## What Is Included
+
+- Shape classes for circles, squares, and triangles.
+- A `Drawing` class that stores shapes and renders them as SVG.
+- A beauty score based on the area distribution between the shape kinds present
+  in the drawing.
+- Constants for built-in shape kinds via `ShapeKind`.
+- Unit tests for each shape class and drawing-level behavior.
 
 ## Usage
 
@@ -10,52 +20,35 @@ from prim import Circle, Square, Triangle
 from drawing import Drawing
 
 drawing = Drawing(width=700, height=420)
-drawing.add(Square(55, 55, 130, "dodgerblue"))
-drawing.add(Circle(335, 155, 82, "tomato"))
-drawing.add(Triangle(450, 45, 610, 105, 525, 220, "gold"))
+drawing.add(Square(x=55, y=55, side=130, color="dodgerblue"))
+drawing.add(Circle(x=335, y=155, radius=82, color="tomato"))
+drawing.add(Triangle(x1=450, y1=45, x2=610, y2=105, x3=525, y3=220, color="gold"))
 
 print(drawing.summary())
 drawing.save_svg("my_art.svg")
 ```
 
-Run the demo:
-
-```powershell
-.venv\Scripts\python.exe main.py
-```
-
-Run tests:
-
-```powershell
-.venv\Scripts\python.exe -m unittest discover -s tests -v
-```
-
 ## Beautiful Score
 
-The score is `0-100`. A score of `100` means circles, squares, and triangles each
-contribute exactly one third of the total primitive area. The current prototype
-uses mathematical primitive area, not pixel coverage after overlap.
+The beauty score is a number from `0` to `100`. A score of `100` means every
+shape kind in the drawing contributes the same share of the total shape area.
 
-## Prototype To Product
+Examples:
 
-- Add a packaged public API, docs, examples, and semantic versioning.
-- Decide how overlap should be treated: mathematical area or true visible pixels.
-- Add richer validation, error messages, and a stable file format.
-- Add PNG/PDF export, interactive preview, and test coverage for edge cases.
-- Add CI, formatting, type checks, and performance benchmarks.
+- 3 shape kinds target about `33.33%` each.
+- 4 shape kinds target `25%` each.
+- 1 shape kind scores `100` when it has area.
+- An empty drawing scores `0`.
 
-## Scalability
+The score uses mathematical shape area. It does not subtract overlap between
+shapes.
 
-The current SVG renderer is fine for small and medium drawings. For larger art:
+## Project Structure
 
-- Stream SVG output instead of building one large string.
-- Use spatial indexes for hit-testing or visible-area calculations.
-- Use raster/vector backends such as Pillow, Cairo, Skia, or browser canvas when
-  true pixel coverage or high-volume rendering matters.
-
-## Future PrimitiveArtRounded
-
-Rounded variants can be introduced by adding new primitive classes or renderer
-strategies while keeping the `Primitive` interface: `area()` and `to_svg()`.
-For example, `RoundedSquare` could preserve the same area semantics while
-rendering with SVG `rx` and `ry` attributes.
+```text
+main.py              Demo script
+drawing.py           Drawing container, SVG rendering, and beauty score
+prim/                Shape classes, base shape, and constants
+tests/               Unit tests
+README.md            Project documentation
+```
