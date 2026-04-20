@@ -15,6 +15,7 @@ class Square(BaseShape):
         y: The y-coordinate of the square's top-left corner.
         side: The side length of the square.
         color: The SVG fill color used to draw the square.
+        order: The drawing order. Higher values are rendered later and appear on top.
         kind: The type name.
     """
 
@@ -22,6 +23,7 @@ class Square(BaseShape):
     y: float
     side: float
     color: Color = "dodgerblue"
+    order: int = 0
     kind: ShapeKind = field(init=False, default=ShapeKind.SQUARE)
 
     def __post_init__(self) -> None:

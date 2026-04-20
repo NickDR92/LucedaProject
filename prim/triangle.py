@@ -18,6 +18,7 @@ class Triangle(BaseShape):
         x3: The x-coordinate of the third point.
         y3: The y-coordinate of the third point.
         color: The SVG fill color used to draw the triangle.
+        order: The drawing order. Higher values are rendered later and appear on top.
         kind: The type name.
     """
 
@@ -28,6 +29,7 @@ class Triangle(BaseShape):
     x3: float
     y3: float
     color: Color = "gold"
+    order: int = 0
     kind: ShapeKind = field(init=False, default=ShapeKind.TRIANGLE)
 
     def area(self) -> float:

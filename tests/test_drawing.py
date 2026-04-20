@@ -12,6 +12,7 @@ class TestObject(BaseShape):
     """Simple custom object used to test dynamic object-kind scoring."""
 
     kind: str = "custom"
+    order: int = 0
 
     def area(self) -> float:
         """Return a fixed test area."""
@@ -90,6 +91,34 @@ class DrawingTest(unittest.TestCase):
         self.assertIn("<rect", svg)
         self.assertIn("<circle", svg)
         self.assertIn("<polygon", svg)
+
+    def test_svg_uses_shape_order(self) -> None:
+        drawing: Drawing = Drawing()
+        drawing.extend(
+            [
+                Circle(x=0, y=0, radius=10, color="red", order=2),
+                Square(x=0, y=0, side=10, color="blue", order=1),
+                Triangle(x1=0, y1=0, x2=10, y2=0, x3=0, y3=10, color="green", order=3),
+            ]
+        )
+
+        svg: str = drawing.to_svg()
+
+        self.assertLess(svg.index('fill="blue"'), svg.index('fill="red"'))
+        self.assertLess(svg.index('fill="red"'), svg.index('fill="green"'))
+
+    def test_svg_keeps_insertion_order_when_shape_order_is_equal(self) -> None:
+        drawing: Drawing = Drawing()
+        drawing.extend(
+            [
+                Circle(x=0, y=0, radius=10, color="red"),
+                Square(x=0, y=0, side=10, color="blue"),
+            ]
+        )
+
+        svg: str = drawing.to_svg()
+
+        self.assertLess(svg.index('fill="red"'), svg.index('fill="blue"'))
 
     def test_primitive_classes_are_importable_from_prim_package(self) -> None:
         # Users should be able to import all primitives from the package root.

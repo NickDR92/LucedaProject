@@ -12,9 +12,11 @@ class BaseShape(ABC):
 
     Attributes:
         kind: The type name used for grouping and scoring.
+        order: The drawing order. Higher values are rendered later and appear on top.
     """
 
     kind: str | ShapeKind
+    order: int
 
     @abstractmethod
     def area(self) -> float:

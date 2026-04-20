@@ -14,6 +14,7 @@ class CustomShape(BaseShape):
     """Custom shape used to verify framework extensibility end to end."""
 
     kind: str = "custom"
+    order: int = 0
 
     def area(self) -> float:
         """Return a fixed area for integration assertions."""

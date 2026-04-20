@@ -29,6 +29,11 @@ class CircleTest(unittest.TestCase):
         self.assertIn('r="5"', svg)
         self.assertIn('fill="red"', svg)
 
+    def test_order_defaults_to_zero(self) -> None:
+        circle: Circle = Circle(x=10, y=20, radius=5)
+
+        self.assertEqual(circle.order, 0)
+
 
 if __name__ == "__main__":
     unittest.main()

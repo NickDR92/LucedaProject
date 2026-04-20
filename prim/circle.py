@@ -16,6 +16,7 @@ class Circle(BaseShape):
         y: The y-coordinate of the circle center.
         radius: The radius of the circle.
         color: The SVG fill color used to draw the circle.
+        order: The drawing order. Higher values are rendered later and appear on top.
         kind: The type name.
     """
 
@@ -23,6 +24,7 @@ class Circle(BaseShape):
     y: float
     radius: float
     color: Color = "tomato"
+    order: int = 0
     kind: ShapeKind = field(init=False, default=ShapeKind.CIRCLE)
 
     def __post_init__(self) -> None:

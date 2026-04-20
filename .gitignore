@@ -25,7 +25,8 @@ dist/
 *.egg-info/
 
 # Generated demo output
-primitive_art_demo.svg
+*.svg
+
 
 # OS files
 .DS_Store

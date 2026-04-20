@@ -106,7 +106,8 @@ class Drawing:
         Returns:
             An SVG document string containing the background and all objects.
         """
-        body = "\n  ".join(shape.to_svg() for shape in self.shapes)
+        ordered_shapes = sorted(self.shapes, key=lambda shape: shape.order)
+        body = "\n  ".join(shape.to_svg() for shape in ordered_shapes)
         return (
             f'<svg xmlns="http://www.w3.org/2000/svg" width="{self.width}" '
             f'height="{self.height}" viewBox="0 0 {self.width} {self.height}">\n'

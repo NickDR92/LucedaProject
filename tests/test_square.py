@@ -29,6 +29,11 @@ class SquareTest(unittest.TestCase):
         self.assertIn('height="5"', svg)
         self.assertIn('fill="blue"', svg)
 
+    def test_order_defaults_to_zero(self) -> None:
+        square: Square = Square(x=10, y=20, side=5)
+
+        self.assertEqual(square.order, 0)
+
 
 if __name__ == "__main__":
     unittest.main()

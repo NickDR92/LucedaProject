@@ -28,6 +28,11 @@ class TriangleTest(unittest.TestCase):
         self.assertIn('points="0,0 10,0 0,5"', svg)
         self.assertIn('fill="green"', svg)
 
+    def test_order_defaults_to_zero(self) -> None:
+        triangle: Triangle = Triangle(x1=0, y1=0, x2=10, y2=0, x3=0, y3=5)
+
+        self.assertEqual(triangle.order, 0)
+
 
 if __name__ == "__main__":
     unittest.main()
