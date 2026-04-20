@@ -4,7 +4,7 @@ import math
 import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Dict
+from typing import Dict, Tuple
 
 from drawing import Drawing
 from prim import BaseShape, Circle, Square, Triangle
@@ -19,6 +19,10 @@ class CustomShape(BaseShape):
     def area(self) -> float:
         """Return a fixed area for integration assertions."""
         return 100
+
+    def start_point(self) -> Tuple[float, float]:
+        """Return a valid start point inside the drawing."""
+        return 1, 1
 
     def to_svg(self) -> str:
         """Render a simple SVG element for integration assertions."""

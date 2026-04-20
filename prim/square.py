@@ -1,6 +1,7 @@
 """Square primitive for PrimitiveArt drawings."""
 
 from dataclasses import dataclass, field
+from typing import Tuple
 
 from prim.baseshape import Color, BaseShape
 from prim.constants import ShapeKind
@@ -42,6 +43,14 @@ class Square(BaseShape):
             The area of the square in square units.
         """
         return self.side**2
+
+    def start_point(self) -> Tuple[float, float]:
+        """Return the square top-left point.
+
+        Returns:
+            The `(x, y)` top-left point.
+        """
+        return self.x, self.y
 
     def to_svg(self) -> str:
         """Render the square as an SVG element.

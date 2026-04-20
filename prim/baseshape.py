@@ -1,6 +1,7 @@
 """Base types for PrimitiveArt primitives."""
 
 from abc import ABC, abstractmethod
+from typing import Tuple
 
 from prim.constants import ShapeKind
 
@@ -17,6 +18,15 @@ class BaseShape(ABC):
 
     kind: str | ShapeKind
     order: int
+
+    @abstractmethod
+    def start_point(self) -> Tuple[float, float]:
+        """Return the point that must be inside the drawing area.
+
+        Returns:
+            The `(x, y)` point used to place the shape in the drawing.
+        """
+        raise NotImplementedError
 
     @abstractmethod
     def area(self) -> float:

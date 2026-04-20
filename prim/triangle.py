@@ -1,6 +1,7 @@
 """Triangle primitive for PrimitiveArt drawings."""
 
 from dataclasses import dataclass, field
+from typing import Tuple
 
 from prim.baseshape import Color, BaseShape
 from prim.constants import ShapeKind
@@ -43,6 +44,14 @@ class Triangle(BaseShape):
             + self.x2 * (self.y3 - self.y1)
             + self.x3 * (self.y1 - self.y2)
         ) / 2
+
+    def start_point(self) -> Tuple[float, float]:
+        """Return the triangle first point.
+
+        Returns:
+            The `(x1, y1)` first point.
+        """
+        return self.x1, self.y1
 
     def to_svg(self) -> str:
         """Render the triangle as an SVG element.

@@ -10,7 +10,7 @@ import webbrowser
 from dataclasses import dataclass, field
 from pathlib import Path
 from tempfile import NamedTemporaryFile
-from typing import Iterable, Dict
+from typing import Dict, Iterable, List
 
 from prim import Color, BaseShape
 from prim.constants import DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_BACKGROUND
@@ -38,7 +38,10 @@ class Drawing:
         Args:
             new_shape: The shape to add.
 
+        Raises:
+            ValueError: If the shape start point is outside the drawing area.
         """
+        self._validate_start_point(new_shape)
         self.shapes.append(new_shape)
 
     def extend(self, new_shapes: Iterable[BaseShape]) -> None:
@@ -47,7 +50,26 @@ class Drawing:
         Args:
             new_shapes: All shapes to append to the drawing.
         """
-        self.shapes.extend(new_shapes)
+        shapes_to_add: List[BaseShape] = list(new_shapes)
+        for shape in shapes_to_add:
+            self._validate_start_point(shape)
+        self.shapes.extend(shapes_to_add)
+
+    def _validate_start_point(self, shape: BaseShape) -> None:
+        """Validate that a shape starts inside the drawing area.
+
+        Args:
+            shape: The shape to validate.
+
+        Raises:
+            ValueError: If the shape start point is outside the drawing area.
+        """
+        x, y = shape.start_point()
+        if not 0 <= x <= self.width or not 0 <= y <= self.height:
+            raise ValueError(
+                f"{shape.kind} start point ({x}, {y}) must be inside the drawing area "
+                f"0 <= x <= {self.width} and 0 <= y <= {self.height}."
+            )
 
     def area_by_kind(self) -> Dict[str, float]:
         """Calculate total area grouped per different shape.
@@ -92,7 +114,7 @@ class Drawing:
         areas = self.area_by_kind()
         total_area = sum(areas.values())
         if total_area == 0:
-            return "No primitives yet. Beautiful score: 0.0/100"
+            return "No shapes yet. Beautiful score: 0.0/100"
 
         lines = [f"Beautiful score: {self.beautiful_score()}/100"]
         for kind, area in areas.items():

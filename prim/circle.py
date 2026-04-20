@@ -2,6 +2,7 @@
 
 import math
 from dataclasses import dataclass, field
+from typing import Tuple
 
 from prim.baseshape import Color, BaseShape
 from prim.constants import ShapeKind
@@ -43,6 +44,14 @@ class Circle(BaseShape):
             The area of the circle in square units.
         """
         return math.pi * self.radius**2
+
+    def start_point(self) -> Tuple[float, float]:
+        """Return the circle center point.
+
+        Returns:
+            The `(x, y)` center point.
+        """
+        return self.x, self.y
 
     def to_svg(self) -> str:
         """Render the circle as an SVG element.
