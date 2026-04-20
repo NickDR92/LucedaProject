@@ -10,8 +10,12 @@ SVG, and calculate how balanced the drawing is by shape area.
 - A `Drawing` class that stores shapes and renders them as SVG.
 - A beauty score based on the area distribution between the shape kinds present
   in the drawing.
+- Shape ordering with `order`, where higher values render later and appear on top.
+- Start-point validation to ensure each shape starts inside the drawing area.
+- Shape coordinate validation to keep all shape coordinates bigger than `0`.
 - Constants for built-in shape kinds via `ShapeKind`.
-- Unit tests for each shape class and drawing-level behavior.
+- Unit and integration tests for shapes, drawings, SVG export, and custom shape
+  behavior.
 
 ## Usage
 
@@ -28,6 +32,17 @@ print(drawing.summary())
 drawing.save_svg("my_art.svg")
 ```
 
+## Validation
+
+Shape coordinates must be bigger than `0`.
+
+- `Circle`: `x`, `y`, and `radius` must be positive.
+- `Square`: `x`, `y`, and `side` must be positive.
+- `Triangle`: `x1`, `y1`, `x2`, `y2`, `x3`, and `y3` must be positive.
+
+When a shape is added to a `Drawing`, its start point must also be inside the
+drawing area. The full shape is allowed to extend outside the SVG canvas.
+
 ## Beautiful Score
 
 The beauty score is a number from `0` to `100`. A score of `100` means every
@@ -43,12 +58,21 @@ Examples:
 The score uses mathematical shape area. It does not subtract overlap between
 shapes.
 
+## Rendering Rules
+
+Shapes are rendered in ascending `order`. Higher `order` values are drawn later,
+so they appear on top when shapes overlap. If shapes have the same `order`, they
+keep the order in which they were added to the drawing.
+
 ## Project Structure
 
 ```text
-main.py              Demo script
-drawing.py           Drawing container, SVG rendering, and beauty score
-prim/                Shape classes, base shape, and constants
-tests/               Unit tests
-README.md            Project documentation
+main.py               Demo script
+example.py            Example drawing script
+example_order.py      Example showing shape render order
+example_random.py     Random drawing example
+drawing.py            Drawing container, SVG rendering, and beauty score
+prim/                 Shape classes, base shape, and constants
+tests/                Unit and integration tests
+README.md             Project documentation
 ```
