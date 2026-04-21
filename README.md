@@ -32,6 +32,8 @@ print(drawing.summary())
 drawing.save_svg("my_art.svg")
 ```
 
+See [API.md](API.md) for the shape API and run commands.
+
 ## Validation
 
 Shape coordinates must be bigger than `0`.
@@ -75,4 +77,5 @@ drawing.py            Drawing container, SVG rendering, and beauty score
 prim/                 Shape classes, base shape, and constants
 tests/                Unit and integration tests
 README.md             Project documentation
+API.md                API reference and run commands
 ```
