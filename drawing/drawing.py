@@ -52,7 +52,7 @@ class Drawing:
         """
         shapes_to_add: List[BaseShape] = list(new_shapes)
         for shape in shapes_to_add:
-            self._validate_start_point(shape)
+            self._validate_start_point(shape=shape)
         self.shapes.extend(shapes_to_add)
 
     def _validate_start_point(self, shape: BaseShape) -> None:
