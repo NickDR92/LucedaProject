@@ -6,7 +6,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Dict, Tuple
 
-from drawing import Drawing
+from draw import Drawing
 from prim import BaseShape, Circle, Square, Triangle
 
 
@@ -21,7 +21,7 @@ class CustomShape(BaseShape):
         return 100
 
     def start_point(self) -> Tuple[float, float]:
-        """Return a valid start point inside the drawing."""
+        """Return a valid start point inside the draw."""
         return 1, 1
 
     def to_svg(self) -> str:

@@ -17,7 +17,7 @@ class Circle(BaseShape):
         y: The y-coordinate of the circle center.
         radius: The radius of the circle.
         color: The SVG fill color used to draw the circle.
-        order: The drawing order. Higher values are rendered later and appear on top.
+        order: The draw order. Higher values are rendered later and appear on top.
         kind: The type name.
     """
 

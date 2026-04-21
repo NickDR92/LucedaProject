@@ -3,9 +3,8 @@
 import random
 from typing import Callable, List
 
-from drawing import Drawing
-from prim import Circle, Square, Triangle
-from prim.baseshape import BaseShape
+from draw.drawing import Drawing
+from prim import Circle, Square, Triangle, BaseShape
 
 COLORS: List[str] = [
     "#2d7dd2", "#97cc04", "#f45d48", "#7b2cbf", "#f7b801", "#00a6a6", "#f46036", "#1b998b"
@@ -13,7 +12,7 @@ COLORS: List[str] = [
 
 
 def random_circle(width: int, height: int, order: int) -> Circle:
-    """Create a random circle within the drawing area."""
+    """Create a random circle within the draw area."""
     radius: int = random.randint(20, 80)
     return Circle(
         x=random.randint(radius, width - radius),
@@ -25,7 +24,7 @@ def random_circle(width: int, height: int, order: int) -> Circle:
 
 
 def random_square(width: int, height: int, order: int) -> Square:
-    """Create a random square within the drawing area."""
+    """Create a random square within the draw area."""
     side: int = random.randint(35, 120)
     return Square(
         x=random.randint(1, width - side),
@@ -37,7 +36,7 @@ def random_square(width: int, height: int, order: int) -> Square:
 
 
 def random_triangle(width: int, height: int, order: int) -> Triangle:
-    """Create a random triangle within the drawing area."""
+    """Create a random triangle within the draw area."""
     return Triangle(
         x1=random.randint(1, width),
         y1=random.randint(1, height),
@@ -51,13 +50,13 @@ def random_triangle(width: int, height: int, order: int) -> Triangle:
 
 
 def build_random_art(shape_count: int = 12) -> Drawing:
-    """Create a random drawing.
+    """Create a random draw.
 
     Args:
         shape_count: Number of random shapes to add.
 
     Returns:
-        A drawing filled with randomly generated shapes.
+        A draw filled with randomly generated shapes.
     """
     width: int = 700
     height: int = 420

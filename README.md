@@ -21,7 +21,7 @@ SVG, and calculate how balanced the drawing is by shape area.
 
 ```python
 from prim import Circle, Square, Triangle
-from drawing import Drawing
+from draw import Drawing
 
 drawing = Drawing(width=700, height=420)
 drawing.add(Square(x=55, y=55, side=130, color="dodgerblue"))

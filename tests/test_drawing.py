@@ -5,7 +5,7 @@ import unittest
 from typing import Dict, Tuple
 
 from prim import Circle, BaseShape, ShapeKind, Square, Triangle
-from drawing import Drawing
+from draw import Drawing
 
 
 class TestObject(BaseShape):
@@ -19,7 +19,7 @@ class TestObject(BaseShape):
         return 100
 
     def start_point(self) -> Tuple[float, float]:
-        """Return a valid start point inside the drawing."""
+        """Return a valid start point inside the draw."""
         return 0, 0
 
     def to_svg(self) -> str:
@@ -28,7 +28,7 @@ class TestObject(BaseShape):
 
 
 class DrawingTest(unittest.TestCase):
-    """Verify drawing-level behavior."""
+    """Verify draw-level behavior."""
 
     def test_area_by_kind(self) -> None:
         drawing: Drawing = Drawing()
@@ -91,7 +91,7 @@ class DrawingTest(unittest.TestCase):
 
         svg: str = drawing.to_svg()
 
-        # The drawing renderer delegates SVG output to each primitive.
+        # The draw renderer delegates SVG output to each primitive.
         self.assertIn("<rect", svg)
         self.assertIn("<circle", svg)
         self.assertIn("<polygon", svg)

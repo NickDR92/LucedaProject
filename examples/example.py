@@ -1,5 +1,6 @@
+from draw.drawing import Drawing
 from prim import Circle, Square, Triangle
-from drawing import Drawing
+
 
 
 drawing = Drawing(width=700, height=420, background="#fbfaf6")

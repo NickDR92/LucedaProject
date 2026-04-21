@@ -13,7 +13,7 @@ class BaseShape(ABC):
 
     Attributes:
         kind: The type name used for grouping and scoring.
-        order: The drawing order. Higher values are rendered later and appear on top.
+        order: The draw order. Higher values are rendered later and appear on top.
     """
 
     kind: str | ShapeKind
@@ -21,10 +21,10 @@ class BaseShape(ABC):
 
     @abstractmethod
     def start_point(self) -> Tuple[float, float]:
-        """Return the point that must be inside the drawing area.
+        """Return the point that must be inside the draw area.
 
         Returns:
-            The `(x, y)` point used to place the shape in the drawing.
+            The `(x, y)` point used to place the shape in the draw.
         """
         raise NotImplementedError
 

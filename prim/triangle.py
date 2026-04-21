@@ -19,7 +19,7 @@ class Triangle(BaseShape):
         x3: The x-coordinate of the third point.
         y3: The y-coordinate of the third point.
         color: The SVG fill color used to draw the triangle.
-        order: The drawing order. Higher values are rendered later and appear on top.
+        order: The draw order. Higher values are rendered later and appear on top.
         kind: The type name.
     """
 

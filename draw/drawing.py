@@ -18,13 +18,13 @@ from prim.constants import DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_BACKGROUND
 
 @dataclass
 class Drawing:
-    """A drawing made from all known shapes.
+    """A draw made from all known shapes.
 
     Attributes:
         width: Width of the SVG canvas in pixels.
         height: Height of the SVG canvas in pixels.
         background: Background color of the SVG canvas.
-        shapes: All shapes included in the drawing.
+        shapes: All shapes included in the draw.
     """
 
     width: int = DEFAULT_WIDTH
@@ -33,22 +33,22 @@ class Drawing:
     shapes: list[BaseShape] = field(default_factory=list)
 
     def add(self, new_shape: BaseShape) -> None:
-        """Add one shape to the drawing.
+        """Add one shape to the draw.
 
         Args:
             new_shape: The shape to add.
 
         Raises:
-            ValueError: If the shape start point is outside the drawing area.
+            ValueError: If the shape start point is outside the draw area.
         """
         self._validate_start_point(new_shape)
         self.shapes.append(new_shape)
 
     def extend(self, new_shapes: Iterable[BaseShape]) -> None:
-        """Add multiple shapes to the drawing.
+        """Add multiple shapes to the draw.
 
         Args:
-            new_shapes: All shapes to append to the drawing.
+            new_shapes: All shapes to append to the draw.
         """
         shapes_to_add: List[BaseShape] = list(new_shapes)
         for shape in shapes_to_add:
@@ -56,18 +56,18 @@ class Drawing:
         self.shapes.extend(shapes_to_add)
 
     def _validate_start_point(self, shape: BaseShape) -> None:
-        """Validate that a shape starts inside the drawing area.
+        """Validate that a shape starts inside the draw area.
 
         Args:
             shape: The shape to validate.
 
         Raises:
-            ValueError: If the shape start point is outside the drawing area.
+            ValueError: If the shape start point is outside the draw area.
         """
         x, y = shape.start_point()
         if not 0 <= x <= self.width or not 0 <= y <= self.height:
             raise ValueError(
-                f"{shape.kind} start point ({x}, {y}) must be inside the drawing area "
+                f"{shape.kind} start point ({x}, {y}) must be inside the draw area "
                 f"0 <= x <= {self.width} and 0 <= y <= {self.height}."
             )
 
@@ -75,7 +75,7 @@ class Drawing:
         """Calculate total area grouped per different shape.
 
         Returns:
-            A dictionary with total area for every shape in the drawing.
+            A dictionary with total area for every shape in the draw.
         """
         areas: Dict[str, float] = {}
         for shape in self.shapes:
@@ -83,9 +83,9 @@ class Drawing:
         return areas
 
     def beautiful_score(self) -> float:
-        """Calculate how close the drawing is to equal area distribution.
+        """Calculate how close the draw is to equal area distribution.
 
-        A perfect score means every object kind in the drawing contributes the same share of the total object area.
+        A perfect score means every object kind in the draw contributes the same share of the total object area.
         For example, 3 kinds target one third each, while 4 kinds target one fourth each.
 
         Returns:
@@ -101,12 +101,12 @@ class Drawing:
             return 100.0
 
         target_dist = 1 / kind_count
-        distance = sum(abs((area / total_area) - target_dist) for area in areas.values())
+        difference = sum(abs((area / total_area) - target_dist) for area in areas.values())
         worst_dist = 2 * (kind_count - 1) / kind_count
-        return round(max(0.0, 100 * (1 - distance / worst_dist)), 2)
+        return round(max(0.0, 100 * (1 - difference / worst_dist)), 2)
 
     def summary(self) -> str:
-        """Build a human-readable summary of drawing area and beauty score.
+        """Build a human-readable summary of draw area and beauty score.
 
         Returns:
             A multiline summary containing the beauty score and area percentages.
@@ -123,7 +123,7 @@ class Drawing:
         return "\n".join(lines)
 
     def to_svg(self) -> str:
-        """Render the full drawing as SVG text.
+        """Render the full draw as SVG text.
 
         Returns:
             An SVG document string containing the background and all objects.
@@ -139,7 +139,7 @@ class Drawing:
         )
 
     def save_svg(self, path: str | Path) -> Path:
-        """Save the drawing as an SVG file.
+        """Save the draw as an SVG file.
 
         Args:
             path: File path where the SVG should be written.
@@ -152,7 +152,7 @@ class Drawing:
         return output_path
 
     def show(self) -> Path:
-        """Open the drawing in the default browser as a temporary SVG file.
+        """Open the draw in the default browser as a temporary SVG file.
 
         Returns:
             The path to the temporary SVG file.

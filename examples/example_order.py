@@ -1,7 +1,7 @@
 from prim import Circle, Square, Triangle
-from drawing import Drawing
+from draw.drawing import Drawing
 
-# drawing = Drawing(width=700, height=420, background="#fbfaf6")  # Fail
+# draw = Drawing(width=700, height=420, background="#fbfaf6")  # Fail
 drawing = Drawing(width=1000, height=750, background="#fbfaf6")  # Pass
 drawing.extend(
     [
