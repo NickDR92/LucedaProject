@@ -1,0 +1,11 @@
+[MAIN]
+ignore=__pycache__
+
+[FORMAT]
+max-line-length=100
+
+[MESSAGES CONTROL]
+disable=
+    missing-function-docstring,
+    too-many-instance-attributes,
+    duplicate-code

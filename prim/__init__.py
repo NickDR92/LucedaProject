@@ -1,3 +1,5 @@
+"""Public shape package exports."""
+
 from prim.baseshape import Color, BaseShape
 from prim.circle import Circle
 from prim.constants import ShapeKind

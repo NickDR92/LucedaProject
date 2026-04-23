@@ -88,7 +88,8 @@ class Drawing:
     def beautiful_score(self) -> float:
         """Calculate how close the draw is to equal area distribution.
 
-        A perfect score means every object kind in the draw contributes the same share of the total object area.
+        A perfect score means every object kind in the draw contributes the same
+        share of the total object area.
         For example, 3 kinds target one third each, while 4 kinds target one fourth each.
 
         Returns:
