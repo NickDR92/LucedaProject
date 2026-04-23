@@ -1,6 +1,7 @@
 """Unit tests for the Circle primitive."""
 
 import math
+from typing import Dict
 
 import pytest
 
@@ -32,7 +33,7 @@ def test_rejects_non_positive_radius() -> None:
     ],
 )
 def test_rejects_coordinates_that_are_not_bigger_than_zero(
-    coordinates: dict[str, float],
+    coordinates: Dict[str, float],
 ) -> None:
     with pytest.raises(ValueError):
         Circle(**coordinates)

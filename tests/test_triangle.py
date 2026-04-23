@@ -1,4 +1,5 @@
 """Unit tests for the Triangle primitive."""
+from typing import Dict
 
 import pytest
 
@@ -35,7 +36,7 @@ def test_bounding_box() -> None:
     ],
 )
 def test_rejects_coordinates_that_are_not_bigger_than_zero(
-    coordinates: dict[str, float],
+    coordinates: Dict[str, float],
 ) -> None:
     with pytest.raises(ValueError):
         Triangle(**coordinates)
