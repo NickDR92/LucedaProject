@@ -90,7 +90,6 @@ python -m pytest
 ```text
 draw/
   drawing.py          Drawing container, validation, SVG rendering, and scoring
-  __init__.py         Public drawing package exports
 prim/
   baseshape.py        BaseShape interface and Color alias
   circle.py           Circle primitive
