@@ -1,4 +1,4 @@
-"""Base types for PrimitiveArt primitives."""
+"""Base types for ShapeArt shapes."""
 
 from abc import ABC, abstractmethod
 from typing import Tuple

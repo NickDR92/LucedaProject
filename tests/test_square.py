@@ -1,4 +1,4 @@
-"""Unit tests for the Square primitive."""
+"""Unit tests for the Square shape."""
 from typing import Dict
 
 import pytest

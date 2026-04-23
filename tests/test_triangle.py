@@ -1,4 +1,4 @@
-"""Unit tests for the Triangle primitive."""
+"""Unit tests for the Triangle shape."""
 from typing import Dict
 
 import pytest

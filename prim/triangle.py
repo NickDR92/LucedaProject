@@ -1,4 +1,4 @@
-"""Triangle primitive for PrimitiveArt drawings."""
+"""Triangle shape for ShapeArt drawings."""
 
 from dataclasses import dataclass, field
 from typing import Tuple

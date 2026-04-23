@@ -1,4 +1,4 @@
-# PrimitiveArt API
+# ShapeArt API
 
 ## Imports
 
@@ -187,7 +187,7 @@ ShapeKind.SQUARE    # "square"
 ShapeKind.TRIANGLE  # "triangle"
 ```
 
-Built-in primitives use `ShapeKind` values for `kind`. Custom shapes can use any
+Built-in shapes use `ShapeKind` values for `kind`. Custom shapes can use any
 string `kind`.
 
 ## Custom Shapes

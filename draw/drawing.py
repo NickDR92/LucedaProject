@@ -1,4 +1,4 @@
-"""Drawing container and rendering utilities for PrimitiveArt.
+"""Drawing container and rendering utilities for ShapeArt.
 
 This module exposes the `Drawing` class, which collects BaseShape objects,
 calculates area distribution, computes the beauty score, and exports SVG output.

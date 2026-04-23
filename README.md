@@ -1,7 +1,7 @@
-# PrimitiveArt
+# ShapeArt
 
-PrimitiveArt is a small runtime dependency-free Python project for creating SVG
-drawings from primitive shapes. It includes circles, squares, and triangles,
+ShapeArt is a small runtime dependency-free Python project for creating SVG
+drawings from basic shapes. It includes circles, squares, and triangles,
 plus a `Drawing` container that validates shapes, renders SVG, and calculates a
 beauty score based on area balance.
 
@@ -16,7 +16,7 @@ beauty score based on area balance.
 - A beauty score from `0` to `100` based on area distribution by shape kind.
 - A `BaseShape` interface for custom drawable shapes.
 - Built-in shape kind constants through `ShapeKind`.
-- Pytest tests for primitives, drawing behavior, SVG export, custom shapes, and
+- Pytest tests for shapes, drawing behavior, SVG export, custom shapes, and
   browser display behavior.
 
 ## Usage
@@ -36,7 +36,7 @@ drawing.save_svg("my_art.svg")
 
 ## Validation
 
-Primitive coordinates must be non-negative. Dimensions must be positive.
+Shape coordinates must be non-negative. Dimensions must be positive.
 
 - `Circle`: `x` and `y` must be `>= 0`; `radius` must be `> 0`.
 - `Square`: `x` and `y` must be `>= 0`; `side` must be `> 0`.
@@ -92,9 +92,9 @@ draw/
   drawing.py          Drawing container, validation, SVG rendering, and scoring
 prim/
   baseshape.py        BaseShape interface and Color alias
-  circle.py           Circle primitive
-  square.py           Square primitive
-  triangle.py         Triangle primitive
+  circle.py           Circle shape
+  square.py           Square shape
+  triangle.py         Triangle shape
   constants.py        Defaults and ShapeKind enum
 examples/             Example scripts and generated SVG output
 tests/                Pytest test suite

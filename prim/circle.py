@@ -1,4 +1,4 @@
-"""Circle primitive for PrimitiveArt drawings."""
+"""Circle shape for ShapeArt drawings."""
 
 import math
 from dataclasses import dataclass, field

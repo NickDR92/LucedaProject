@@ -1,4 +1,4 @@
-"""Unit tests for the Circle primitive."""
+"""Unit tests for the Circle shape."""
 
 import math
 from typing import Dict

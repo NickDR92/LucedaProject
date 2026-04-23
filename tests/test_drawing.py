@@ -1,4 +1,4 @@
-"""Integration tests for drawings composed of multiple primitives."""
+"""Integration tests for drawings composed of multiple shapes."""
 
 import math
 from pathlib import Path
@@ -84,7 +84,7 @@ def test_beautiful_score_is_0_for_empty_drawing() -> None:
     assert drawing.beautiful_score() == 0.0
 
 
-def test_svg_contains_all_primitive_types() -> None:
+def test_svg_contains_all_shape_types() -> None:
     drawing = Drawing()
     drawing.extend(
         [
@@ -161,13 +161,13 @@ def test_extend_rejects_shapes_with_bounding_box_outside_drawing_area() -> None:
     assert drawing.shapes == []
 
 
-def test_primitive_classes_are_importable_from_prim_package() -> None:
+def test_shape_classes_are_importable_from_prim_package() -> None:
     assert Circle(x=1, y=1, radius=1).kind == "circle"
     assert Square(x=1, y=1, side=1).kind == "square"
     assert Triangle(x1=1, y1=1, x2=2, y2=1, x3=1, y3=2).kind == "triangle"
 
 
-def test_builtin_primitives_use_shape_kind_enum() -> None:
+def test_builtin_shapes_use_shape_kind_enum() -> None:
     assert Circle(x=1, y=1, radius=1).kind == ShapeKind.CIRCLE
     assert Square(x=1, y=1, side=1).kind == ShapeKind.SQUARE
     assert Triangle(x1=1, y1=1, x2=2, y2=1, x3=1, y3=2).kind == ShapeKind.TRIANGLE

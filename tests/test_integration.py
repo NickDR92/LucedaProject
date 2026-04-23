@@ -1,4 +1,4 @@
-"""Integration tests for complete PrimitiveArt workflows."""
+"""Integration tests for complete ShapeArt workflows."""
 
 import math
 from pathlib import Path

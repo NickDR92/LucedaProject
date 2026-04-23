@@ -1,4 +1,4 @@
-"""Constants used by PrimitiveArt primitive classes."""
+"""Constants used by ShapeArt shape classes."""
 
 from enum import StrEnum
 
@@ -10,7 +10,7 @@ DEFAULT_BACKGROUND: str = "white"
 class ShapeKind(StrEnum):
     """Built-in shape kind names.
 
-    These values describe the primitive types shipped by the framework. Custom
+    These values describe the shape types shipped by the framework. Custom
     shapes can still use their own string `kind` values.
     """
 
