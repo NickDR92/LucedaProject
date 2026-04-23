@@ -2,7 +2,7 @@
 
 import math
 from pathlib import Path
-from typing import Dict, Tuple
+from typing import Dict, Tuple, List
 
 import pytest
 
@@ -78,6 +78,12 @@ def test_beautiful_score_is_100_for_one_present_object_kind() -> None:
     assert drawing.beautiful_score() == 100
 
 
+def test_beautiful_score_is_0_for_empty_drawing() -> None:
+    drawing = Drawing()
+
+    assert drawing.beautiful_score() == 0.0
+
+
 def test_svg_contains_all_primitive_types() -> None:
     drawing = Drawing()
     drawing.extend(
@@ -133,8 +139,7 @@ def test_svg_keeps_insertion_order_when_shape_order_is_equal() -> None:
     ],
 )
 def test_add_rejects_shape_with_bounding_box_outside_drawing_area(
-    shape: BaseShape,
-    message: str,
+        shape: BaseShape, message: str,
 ) -> None:
     drawing = Drawing(width=100, height=100)
 
@@ -169,7 +174,7 @@ def test_builtin_primitives_use_shape_kind_enum() -> None:
 
 
 def test_show_opens_temporary_svg_in_browser(monkeypatch: pytest.MonkeyPatch) -> None:
-    opened_urls: list[str] = []
+    opened_urls: List[str] = []
     drawing = Drawing(width=20, height=10, background="white")
 
     monkeypatch.setattr(draw.drawing.webbrowser, "open", opened_urls.append)
