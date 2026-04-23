@@ -30,7 +30,7 @@ class Drawing:
     width: int = DEFAULT_WIDTH
     height: int = DEFAULT_HEIGHT
     background: Color = DEFAULT_BACKGROUND
-    shapes: list[BaseShape] = field(default_factory=list)
+    shapes: List[BaseShape] = field(default_factory=list)
 
     def add(self, new_shape: BaseShape) -> None:
         """Add one shape to the draw.
