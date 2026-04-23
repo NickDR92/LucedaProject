@@ -75,6 +75,16 @@ Shapes are rendered in ascending `order`. Higher `order` values are drawn later,
 so they appear on top when shapes overlap. If shapes have the same `order`, they
 keep the order in which they were added to the drawing.
 
+## Tests
+
+The runtime code only uses the Python standard library. To run the test suite,
+install the development requirements first:
+
+```bash
+python -m pip install -r requirements-dev.txt
+python -m pytest
+```
+
 ## Project Structure
 
 ```text
@@ -90,6 +100,7 @@ prim/
 examples/             Example scripts and generated SVG output
 tests/                Pytest test suite
 pytest.ini            Pytest configuration
+requirements-dev.txt  Test/development dependencies
 README.md             Project overview
 API.md                API reference
 ```
