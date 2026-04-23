@@ -68,13 +68,18 @@ class Triangle(BaseShape):
             + self.x3 * (self.y1 - self.y2)
         ) / 2
 
-    def start_point(self) -> Tuple[float, float]:
-        """Return the triangle first point.
+    def bounding_box(self) -> Tuple[float, float, float, float]:
+        """Return the smallest rectangle containing the triangle.
 
         Returns:
-            The `(x1, y1)` first point.
+            The `(min_x, min_y, max_x, max_y)` bounds of the triangle.
         """
-        return self.x1, self.y1
+        min_x = min(self.x1, self.x2, self.x3)
+        min_y = min(self.y1, self.y2, self.y3)
+        max_x = max(self.x1, self.x2, self.x3)
+        max_y = max(self.y1, self.y2, self.y3)
+
+        return (min_x, min_y, max_x, max_y)
 
     def to_svg(self) -> str:
         """Render the triangle as an SVG element.

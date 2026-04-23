@@ -20,6 +20,11 @@ class TriangleTest(unittest.TestCase):
         # The shoelace formula returns the same area regardless of point order.
         self.assertEqual(triangle.area(), 25)
 
+    def test_bounding_box(self) -> None:
+        triangle = Triangle(x1=4, y1=9, x2=12, y2=3, x3=2, y3=7)
+
+        self.assertEqual(triangle.bounding_box(), (2, 3, 12, 9))
+
     def test_rejects_coordinates_that_are_not_bigger_than_zero(self) -> None:
         invalid_coordinates = [
             {"x1": -1, "y1": 1, "x2": 10, "y2": 1, "x3": 1, "y3": 5},

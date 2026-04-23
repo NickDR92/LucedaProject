@@ -54,15 +54,18 @@ class Circle(BaseShape):
         Returns:
             The area of the circle in square units.
         """
-        return math.pi * self.radius**2
+        return math.pi * self.radius ** 2
 
-    def start_point(self) -> Tuple[float, float]:
-        """Return the circle center point.
+    def bounding_box(self) -> Tuple[float, float, float, float]:
+        """Return the smallest rectangle containing the circle.
 
         Returns:
-            The `(x, y)` center point.
+            The `(min_x, min_y, max_x, max_y)` bounds of the circle.
         """
-        return self.x, self.y
+        return (
+            self.x - self.radius, self.y - self.radius,
+            self.x + self.radius, self.y + self.radius,
+        )
 
     def to_svg(self) -> str:
         """Render the circle as an SVG element.

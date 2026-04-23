@@ -55,13 +55,13 @@ class Square(BaseShape):
         """
         return self.side**2
 
-    def start_point(self) -> Tuple[float, float]:
-        """Return the square top-left point.
+    def bounding_box(self) -> Tuple[float, float, float, float]:
+        """Return the smallest rectangle containing the square.
 
         Returns:
-            The `(x, y)` top-left point.
+            The `(min_x, min_y, max_x, max_y)` bounds of the square.
         """
-        return self.x, self.y
+        return (self.x, self.y, self.x + self.side, self.y + self.side)
 
     def to_svg(self) -> str:
         """Render the square as an SVG element.

@@ -20,9 +20,9 @@ class CustomShape(BaseShape):
         """Return a fixed area for integration assertions."""
         return 100
 
-    def start_point(self) -> Tuple[float, float]:
-        """Return a valid start point inside the draw."""
-        return 1, 1
+    def bounding_box(self) -> Tuple[float, float, float, float]:
+        """Return valid bounds inside the draw."""
+        return 1, 1, 11, 11
 
     def to_svg(self) -> str:
         """Render a simple SVG element for integration assertions."""
@@ -59,7 +59,7 @@ class PrimitiveArtIntegrationTest(unittest.TestCase):
     def test_summary_matches_area_distribution_for_mixed_shapes(self) -> None:
         drawing: Drawing = Drawing()
         drawing.add(Square(x=1, y=1, side=10))
-        drawing.add(Circle(x=1, y=1, radius=math.sqrt(100 / math.pi)))
+        drawing.add(Circle(x=10, y=10, radius=math.sqrt(100 / math.pi)))
         drawing.add(Triangle(x1=1, y1=1, x2=21, y2=1, x3=1, y3=11))
 
         summary: str = drawing.summary()

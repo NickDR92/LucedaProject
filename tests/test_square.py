@@ -14,6 +14,11 @@ class SquareTest(unittest.TestCase):
         # Square area is side squared.
         self.assertEqual(square.area(), 25)
 
+    def test_bounding_box(self) -> None:
+        square = Square(x=10, y=20, side=5)
+
+        self.assertEqual(square.bounding_box(), (10, 20, 15, 25))
+
     def test_rejects_non_positive_side(self) -> None:
         with self.assertRaises(ValueError):
             Square(x=10, y=20, side=0)

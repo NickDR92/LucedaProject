@@ -20,11 +20,11 @@ class BaseShape(ABC):
     order: int
 
     @abstractmethod
-    def start_point(self) -> Tuple[float, float]:
-        """Return the point that must be inside the draw area.
+    def bounding_box(self) -> Tuple[float, float, float, float]:
+        """Return the smallest rectangle containing the shape.
 
         Returns:
-            The `(x, y)` point used to place the shape in the draw.
+            The `(min_x, min_y, max_x, max_y)` bounds of the shape.
         """
         raise NotImplementedError
 

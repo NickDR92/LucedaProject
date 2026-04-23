@@ -15,6 +15,11 @@ class CircleTest(unittest.TestCase):
         # Circle area is pi * radius squared.
         self.assertEqual(circle.area(), math.pi * 25)
 
+    def test_bounding_box(self) -> None:
+        circle = Circle(x=10, y=20, radius=5)
+
+        self.assertEqual(circle.bounding_box(), (5, 15, 15, 25))
+
     def test_rejects_non_positive_radius(self) -> None:
         with self.assertRaises(ValueError):
             Circle(x=10, y=20, radius=0)

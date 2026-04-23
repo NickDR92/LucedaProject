@@ -39,9 +39,9 @@ class Drawing:
             new_shape: The shape to add.
 
         Raises:
-            ValueError: If the shape start point is outside the draw area.
+            ValueError: If the shape bounding box is outside the draw area.
         """
-        self._validate_start_point(new_shape)
+        self._validate_bounding_box(new_shape)
         self.shapes.append(new_shape)
 
     def extend(self, new_shapes: Iterable[BaseShape]) -> None:
@@ -52,23 +52,26 @@ class Drawing:
         """
         shapes_to_add: List[BaseShape] = list(new_shapes)
         for shape in shapes_to_add:
-            self._validate_start_point(shape=shape)
+            self._validate_bounding_box(shape=shape)
         self.shapes.extend(shapes_to_add)
 
-    def _validate_start_point(self, shape: BaseShape) -> None:
-        """Validate that a shape starts inside the draw area.
+    def _validate_bounding_box(self, shape: BaseShape) -> None:
+        """Validate that a shape is fully inside the draw area.
 
         Args:
             shape: The shape to validate.
 
         Raises:
-            ValueError: If the shape start point is outside the draw area.
+            ValueError: If the shape bounding box is outside the draw area.
         """
-        x, y = shape.start_point()
-        if not 0 <= x <= self.width or not 0 <= y <= self.height:
+        min_x, min_y, max_x, max_y = shape.bounding_box()
+
+        if not (0 <= min_x <= self.width and 0 <= min_y <= self.height and
+                0 <= max_x <= self.width and 0 <= max_y <= self.height):
             raise ValueError(
-                f"{shape.kind} start point ({x}, {y}) must be inside the draw area "
-                f"0 <= x <= {self.width} and 0 <= y <= {self.height}."
+                f"{shape.kind} bounding box ({min_x}, {min_y}, {max_x}, {max_y}) "
+                f"must be inside the draw area 0 <= x <= {self.width} "
+                f"and 0 <= y <= {self.height}."
             )
 
     def area_by_kind(self) -> Dict[str, float]:

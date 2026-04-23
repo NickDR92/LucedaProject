@@ -18,9 +18,9 @@ class TestObject(BaseShape):
         """Return a fixed test area."""
         return 100
 
-    def start_point(self) -> Tuple[float, float]:
-        """Return a valid start point inside the draw."""
-        return 0, 0
+    def bounding_box(self) -> Tuple[float, float, float, float]:
+        """Return valid bounds inside the draw."""
+        return 0, 0, 10, 10
 
     def to_svg(self) -> str:
         """Return a minimal SVG element for integration tests."""
@@ -33,7 +33,7 @@ class DrawingTest(unittest.TestCase):
     def test_area_by_kind(self) -> None:
         drawing: Drawing = Drawing()
         drawing.add(Square(x=1, y=1, side=10))
-        drawing.add(Circle(x=1, y=1, radius=10))
+        drawing.add(Circle(x=10, y=10, radius=10))
         drawing.add(Triangle(x1=1, y1=1, x2=11, y2=1, x3=1, y3=11))
 
         areas: Dict[str, float] = drawing.area_by_kind()
@@ -57,7 +57,7 @@ class DrawingTest(unittest.TestCase):
 
         # Each primitive contributes exactly 100 area units.
         drawing.add(Square(x=1, y=1, side=10))
-        drawing.add(Circle(x=1, y=1, radius=math.sqrt(100 / math.pi)))
+        drawing.add(Circle(x=10, y=10, radius=math.sqrt(100 / math.pi)))
         drawing.add(Triangle(x1=1, y1=1, x2=21, y2=1, x3=1, y3=11))
 
         self.assertEqual(drawing.beautiful_score(), 100)
@@ -67,7 +67,7 @@ class DrawingTest(unittest.TestCase):
 
         # Four kinds with equal areas should target 25% each.
         drawing.add(Square(x=1, y=1, side=10))
-        drawing.add(Circle(x=1, y=1, radius=math.sqrt(100 / math.pi)))
+        drawing.add(Circle(x=10, y=10, radius=math.sqrt(100 / math.pi)))
         drawing.add(Triangle(x1=1, y1=1, x2=21, y2=1, x3=1, y3=11))
         drawing.add(TestObject())
 
@@ -100,7 +100,7 @@ class DrawingTest(unittest.TestCase):
         drawing: Drawing = Drawing()
         drawing.extend(
             [
-                Circle(x=1, y=1, radius=10, color="red", order=2),
+                Circle(x=10, y=10, radius=10, color="red", order=2),
                 Square(x=1, y=1, side=10, color="blue", order=1),
                 Triangle(x1=1, y1=1, x2=11, y2=1, x3=1, y3=11, color="green", order=3),
             ]
@@ -115,7 +115,7 @@ class DrawingTest(unittest.TestCase):
         drawing: Drawing = Drawing()
         drawing.extend(
             [
-                Circle(x=1, y=1, radius=10, color="red"),
+                Circle(x=10, y=10, radius=10, color="red"),
                 Square(x=1, y=1, side=10, color="blue"),
             ]
         )
@@ -124,23 +124,22 @@ class DrawingTest(unittest.TestCase):
 
         self.assertLess(svg.index('fill="red"'), svg.index('fill="blue"'))
 
-    def test_add_allows_shape_area_to_exceed_drawing_area(self) -> None:
+    def test_add_rejects_shape_with_bounding_box_outside_drawing_area(self) -> None:
         drawing: Drawing = Drawing(width=100, height=100)
 
-        drawing.add(Square(x=90, y=90, side=50))
+        with self.assertRaisesRegex(ValueError, "square bounding box \\(90, 90, 140, 140\\)"):
+            drawing.add(Square(x=90, y=90, side=50))
 
-        self.assertEqual(len(drawing.shapes), 1)
-
-    def test_add_rejects_shape_with_start_point_outside_drawing_area(self) -> None:
+    def test_add_rejects_shape_with_bounding_box_start_outside_drawing_area(self) -> None:
         drawing: Drawing = Drawing(width=100, height=100)
 
-        with self.assertRaisesRegex(ValueError, "square start point \\(101, 50\\)"):
+        with self.assertRaisesRegex(ValueError, "square bounding box \\(101, 50, 111, 60\\)"):
             drawing.add(Square(x=101, y=50, side=10))
 
-    def test_extend_rejects_shapes_with_start_point_outside_drawing_area(self) -> None:
+    def test_extend_rejects_shapes_with_bounding_box_outside_drawing_area(self) -> None:
         drawing: Drawing = Drawing(width=100, height=100)
 
-        with self.assertRaisesRegex(ValueError, "circle start point \\(50, 101\\)"):
+        with self.assertRaisesRegex(ValueError, "circle bounding box \\(40, 91, 60, 111\\)"):
             drawing.extend(
                 [
                     Square(x=10, y=10, side=10),
