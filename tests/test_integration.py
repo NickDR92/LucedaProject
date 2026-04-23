@@ -1,9 +1,7 @@
 """Integration tests for complete PrimitiveArt workflows."""
 
 import math
-import unittest
 from pathlib import Path
-from tempfile import TemporaryDirectory
 from typing import Dict, Tuple
 
 from draw import Drawing
@@ -29,72 +27,66 @@ class CustomShape(BaseShape):
         return '<rect x="1" y="1" width="10" height="10" fill="black" />'
 
 
-class PrimitiveArtIntegrationTest(unittest.TestCase):
-    """Verify complete user-facing PrimitiveArt workflows."""
+def test_user_can_create_score_and_save_svg_drawing(tmp_path: Path) -> None:
+    drawing = Drawing(width=320, height=240, background="white")
+    drawing.extend(
+        [
+            Square(x=10, y=10, side=10, color="blue"),
+            Circle(x=50, y=50, radius=math.sqrt(100 / math.pi), color="red"),
+            Triangle(x1=100, y1=10, x2=120, y2=10, x3=100, y3=20, color="gold"),
+        ]
+    )
 
-    def test_user_can_create_score_and_save_svg_drawing(self) -> None:
-        drawing: Drawing = Drawing(width=320, height=240, background="white")
-        drawing.extend(
-            [
-                Square(x=10, y=10, side=10, color="blue"),
-                Circle(x=50, y=50, radius=math.sqrt(100 / math.pi), color="red"),
-                Triangle(x1=100, y1=10, x2=120, y2=10, x3=100, y3=20, color="gold"),
-            ]
-        )
+    output_path = drawing.save_svg(tmp_path / "art.svg")
 
-        with TemporaryDirectory() as temp_dir:
-            output_path: Path = drawing.save_svg(Path(temp_dir) / "art.svg")
+    assert output_path.exists()
+    assert drawing.beautiful_score() == 100
 
-            self.assertTrue(output_path.exists())
-            self.assertEqual(drawing.beautiful_score(), 100)
-
-            svg: str = output_path.read_text(encoding="utf-8")
-            self.assertIn('<svg xmlns="http://www.w3.org/2000/svg"', svg)
-            self.assertIn('width="320"', svg)
-            self.assertIn('height="240"', svg)
-            self.assertIn("<circle", svg)
-            self.assertIn("<rect", svg)
-            self.assertIn("<polygon", svg)
-
-    def test_summary_matches_area_distribution_for_mixed_shapes(self) -> None:
-        drawing: Drawing = Drawing()
-        drawing.add(Square(x=1, y=1, side=10))
-        drawing.add(Circle(x=10, y=10, radius=math.sqrt(100 / math.pi)))
-        drawing.add(Triangle(x1=1, y1=1, x2=21, y2=1, x3=1, y3=11))
-
-        summary: str = drawing.summary()
-
-        self.assertIn("Beautiful score: 100.0/100", summary)
-        self.assertIn("Square", summary)
-        self.assertIn("Circle", summary)
-        self.assertIn("Triangle", summary)
-        self.assertIn("( 33.3%)", summary)
-
-    def test_custom_shape_kind_flows_through_area_score_and_svg(self) -> None:
-        drawing: Drawing = Drawing()
-        drawing.add(Square(x=1, y=1, side=10))
-        drawing.add(CustomShape())
-
-        areas: Dict[str, float] = drawing.area_by_kind()
-        svg: str = drawing.to_svg()
-
-        self.assertEqual(areas["square"], 100)
-        self.assertEqual(areas["custom"], 100)
-        self.assertEqual(drawing.beautiful_score(), 100)
-        self.assertIn('fill="black"', svg)
-
-    def test_empty_drawing_can_still_be_exported(self) -> None:
-        drawing: Drawing = Drawing(width=100, height=80, background="gray")
-
-        with TemporaryDirectory() as temp_dir:
-            output_path: Path = drawing.save_svg(Path(temp_dir) / "empty.svg")
-
-            svg: str = output_path.read_text(encoding="utf-8")
-            self.assertEqual(drawing.beautiful_score(), 0.0)
-            self.assertIn('width="100"', svg)
-            self.assertIn('height="80"', svg)
-            self.assertIn('fill="gray"', svg)
+    svg = output_path.read_text(encoding="utf-8")
+    assert '<svg xmlns="http://www.w3.org/2000/svg"' in svg
+    assert 'width="320"' in svg
+    assert 'height="240"' in svg
+    assert "<circle" in svg
+    assert "<rect" in svg
+    assert "<polygon" in svg
 
 
-if __name__ == "__main__":
-    unittest.main()
+def test_summary_matches_area_distribution_for_mixed_shapes() -> None:
+    drawing = Drawing()
+    drawing.add(Square(x=1, y=1, side=10))
+    drawing.add(Circle(x=10, y=10, radius=math.sqrt(100 / math.pi)))
+    drawing.add(Triangle(x1=1, y1=1, x2=21, y2=1, x3=1, y3=11))
+
+    summary = drawing.summary()
+
+    assert "Beautiful score: 100.0/100" in summary
+    assert "Square" in summary
+    assert "Circle" in summary
+    assert "Triangle" in summary
+    assert "( 33.3%)" in summary
+
+
+def test_custom_shape_kind_flows_through_area_score_and_svg() -> None:
+    drawing = Drawing()
+    drawing.add(Square(x=1, y=1, side=10))
+    drawing.add(CustomShape())
+
+    areas: Dict[str, float] = drawing.area_by_kind()
+    svg = drawing.to_svg()
+
+    assert areas["square"] == 100
+    assert areas["custom"] == 100
+    assert drawing.beautiful_score() == 100
+    assert 'fill="black"' in svg
+
+
+def test_empty_drawing_can_still_be_exported(tmp_path: Path) -> None:
+    drawing = Drawing(width=100, height=80, background="gray")
+
+    output_path = drawing.save_svg(tmp_path / "empty.svg")
+
+    svg = output_path.read_text(encoding="utf-8")
+    assert drawing.beautiful_score() == 0.0
+    assert 'width="100"' in svg
+    assert 'height="80"' in svg
+    assert 'fill="gray"' in svg
