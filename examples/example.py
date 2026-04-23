@@ -1,8 +1,6 @@
 from draw.drawing import Drawing
 from prim import Circle, Square, Triangle
 
-
-
 drawing = Drawing(width=700, height=420, background="#fbfaf6")
 drawing.extend(
     [
@@ -16,7 +14,6 @@ drawing.extend(
 )
 
 output_path = drawing.save_svg("example.svg")
-drawing.show()
-
-print(drawing.summary())
 print(f"\nSaved visualization to: {output_path.resolve()}")
+print(drawing.summary())
+drawing.show()

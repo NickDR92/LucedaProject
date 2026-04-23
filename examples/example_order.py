@@ -19,7 +19,6 @@ drawing.extend(
 )
 
 output_path = drawing.save_svg("example_order.svg")
-drawing.show()
-
-print(drawing.summary())
 print(f"\nSaved visualization to: {output_path.resolve()}")
+print(drawing.summary())
+drawing.show()

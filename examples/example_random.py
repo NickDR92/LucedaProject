@@ -73,7 +73,6 @@ def build_random_art(shape_count: int = 12) -> Drawing:
 if __name__ == "__main__":
     drawing = build_random_art()
     output_path = drawing.save_svg("example_random.svg")
-    drawing.show()
-
-    print(drawing.summary())
     print(f"\nSaved random visualization to: {output_path.resolve()}")
+    print(drawing.summary())
+    drawing.show()
